@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viking Runners Club</title>
+  <meta name="description" content="Viking Runners Club es un club de running ideal para principiantes, adolescentes y personas que corren por primera vez. Únete a entrenamientos grupales, desarrolla disciplina y entrena con una comunidad que te apoya." />
+  <style>
+    :root {
+      --bg: #07111a;
+      --panel: rgba(12, 24, 36, 0.78);
+      --panel-strong: #0d1b29;
+      --text: #edf4fb;
+      --muted: #b9c7d6;
+      --line: rgba(255,255,255,0.10);
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --accent-3: #f59e0b;
+      --shadow: 0 24px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1140px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96,165,250,0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(110,231,183,0.18), transparent 24%),
+        linear-gradient(180deg, #050b12 0%, #07111a 52%, #050b12 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(100% - 32px, var(--max)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(5,11,18,0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(110,231,183,0.95), rgba(96,165,250,0.95));
+      color: #06101a;
+      box-shadow: 0 12px 28px rgba(96,165,250,0.22);
+      font-size: 20px;
+    }
+
+    .navlinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .navlinks a:hover, .navlinks a:focus-visible { color: var(--text); }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-card, .side-card, .section-card, .stat, .faq-item {
+      background: linear-gradient(180deg, rgba(18,30,43,0.92), rgba(8,15,24,0.88));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(110,231,183,0.10);
+      border: 1px solid rgba(110,231,183,0.22);
+      color: #bbf7d0;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .lead {
+      font-size: clamp(1.05rem, 2vw, 1.18rem);
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 18px 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      cursor: pointer;
+      min-height: 48px;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06101a; }
+    .btn-secondary { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); color: var(--text); }
+    .btn-tertiary { background: rgba(245,158,11,0.10); border-color: rgba(245,158,11,0.22); color: #fde68a; }
+
+    .hero-mini {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+
+    .stat {
+      padding: 18px;
+      box-shadow: none;
+      min-height: 108px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+    }
+
+    .stat span { color: var(--muted); font-size: 0.95rem; }
+
+    .side-card {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .side-card h2, .section-title {
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .side-card h2 { font-size: 1.35rem; }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .note {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(96,165,250,0.10);
+      border: 1px solid rgba(96,165,250,0.18);
+      color: #dbeafe;
+    }
+
+    section { padding: 22px 0; }
+
+    .section-card {
+      padding: 28px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 72ch;
+      margin: 10px 0 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+
+    .feature, .price, .faq-item, .contact-box {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature h3, .price h3, .faq-item h3 { margin: 0 0 10px; font-size: 1.08rem; }
+    .feature p, .price p, .faq-item p, .contact-box p { margin: 0; color: var(--muted); }
+
+    .kicker {
+      display: inline-flex;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: #bbf7d0;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .price .amount {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 6px 0 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .price ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .price li { margin: 8px 0; }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .slot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .slot strong { display: block; margin-bottom: 3px; }
+    .slot span { color: var(--muted); font-size: 0.95rem; }
+    .slot em { font-style: normal; color: #dbeafe; white-space: nowrap; }
+
+    .faq {
+      display: grid;
+      gap: 14px;
+    }
+
+    .faq-item details { width: 100%; }
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+      outline: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      float: right;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::after { content: "–"; }
+    .faq-item details > div { margin-top: 12px; color: var(--muted); }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .contact-box strong { display: block; margin-bottom: 6px; }
+
+    footer {
+      padding: 24px 0 36px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .fineprint {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .floating {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      box-shadow: var(--shadow);
+    }
+
+    .floating a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #ecfdf5;
+      font-weight: 800;
+    }
+
+    .icon {
+      width: 1.15em;
+      height: 1.15em;
+      display: inline-block;
+      vertical-align: -0.18em;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid, .grid-3, .grid-2, .contact-grid { grid-template-columns: 1fr; }
+      .hero-mini { grid-template-columns: 1fr; }
+      h1 { max-width: none; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .navlinks { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="mark">V</div>
+        <div>
+          Viking Runners Club
+          <div style="font-size:.9rem;color:var(--muted);font-weight:500;">Corramos juntos. Crezcamos juntos.</div>
+        </div>
+      </div>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#about">Nosotros</a>
+        <a href="#training">Entrenamiento</a>
+        <a href="#prices">Precios</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">Club de running ideal para principiantes, adolescentes y primerizos</div>
+          <h1>Entrena con un club real, que te apoya y lleno de energía.</h1>
+          <p class="lead">Viking Runners Club es una pequeña escuela de running impulsada por la comunidad, creada por dos corredores apasionados que quieren ayudar a los principiantes a desarrollar confianza, resistencia, disciplina y preparación para carreras paso a paso.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Contáctanos</a>
+            <a class="btn btn-secondary" href="#training">Ver días de entrenamiento</a>
+            <a class="btn btn-tertiary" href="#prices">Primera semana gratis</a>
+          </div>
+
+          <div class="hero-mini">
+            <div class="stat"><strong>4 días</strong><span>por semana por la tarde</span></div>
+            <div class="stat"><strong>1ª semana</strong><span>gratis para nuevos miembros</span></div>
+            <div class="stat"><strong>Adolescentes</strong><span>y principiantes son bienvenidos</span></div>
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <h2>Qué nos hace diferentes</h2>
+          <p style="margin:0;color:var(--muted);">No pretendemos ser entrenadores de élite. Estamos construyendo algo honesto: un lugar acogedor para empezar a correr, mejorar de forma constante y unirse a un grupo que realmente te mantiene motivado.</p>
+          <div class="badge-list" aria-label="Destacados">
+            <span class="badge">Entrenamiento para principiantes</span>
+            <span class="badge">Running grupal</span>
+            <span class="badge">Preparación de carreras</span>
+            <span class="badge">Ambiente amigable</span>
+            <span class="badge">Enfocado en jóvenes</span>
+          </div>
+          <div class="note">
+            <strong>Importante:</strong> las sesiones se realizan al aire libre en nuestra localidad. El punto exacto de encuentro se comparte de forma privada tras contactarnos por motivos de seguridad y coordinación.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Sobre el club</div>
+            <h2 class="section-title">Una idea simple: ayudar a las personas a empezar a correr sin miedo.</h2>
+          </div>
+        </div>
+        <p class="section-subtitle">Viking Runners Club existe para quienes quieren empezar a correr, fortalecerse y sentirse parte de un grupo. Nos enfocamos en la constancia, los buenos hábitos y un entorno amigable donde los principiantes no se sientan juzgados. Nuestro objetivo es hacer que el running sea más accesible, estructurado y motivador.</p>
+      </div>
+    </section>
+
+    <section id="training">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Plan de entrenamiento</div>
+            <h2 class="section-title">Estructura semanal sencilla.</h2>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="feature">
+            <h3>4 sesiones por semana</h3>
+            <p>Entrenamientos por la tarde, alrededor de las 4:00 a 5:00 pm. El horario se puede ajustar según la disponibilidad del grupo y el clima.</p>
+          </div>
+          <div class="feature">
+            <h3>Enfoque 100% para principiantes</h3>
+            <p>Comenzamos con lo básico: calentamiento, carrera ligera, técnica, respiración, control del ritmo y progreso seguro. Sin presiones ni intimidaciones.</p>
+          </div>
+          <div class="feature">
+            <h3>Running grupal</h3>
+            <p>Correr con otros hace que sea más fácil mantener la constancia. El ambiente del club está diseñado para ser motivador y social.</p>
+          </div>
+          <div class="feature">
+            <h3>Preparación para carreras</h3>
+            <p>Para los miembros que quieran competir o ponerse a prueba, construimos gradualmente la preparación para carreras con estructura y disciplina.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Ejemplo de flujo semanal</div>
+            <h2 class="section-title">Cómo se ve una semana normal.</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="slot"><div><strong>Día 1 — Técnica + carrera suave</strong><span>Aprender los conceptos básicos y ganar comodidad.</span></div><em>4–5 pm</em></div>
+          <div class="slot"><div><strong>Día 2 — Resistencia</strong><span>Un desafío ligero para mejorar el aguante sin sobrecargas.</span></div><em>4–5 pm</em></div>
+          <div class="slot"><div><strong>Día 3 — Entrenamiento grupal</strong><span>Correr en equipo con motivación y control de ritmo.</span></div><em>4–5 pm</em></div>
+          <div class="slot"><div><strong>Día 4 — Progreso + prep. de carrera</strong><span>Repetir, mejorar y prepararse para futuras competencias.</span></div><em>4–5 pm</em></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prices">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Precios</div>
+            <h2 class="section-title">Empieza gratis y luego continúa con un plan mensual sencillo.</h2>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="price">
+            <h3>Primera semana gratis</h3>
+            <div class="amount">Gratis</div>
+            <p>Prueba el club, conócenos y mira si el estilo de entrenamiento se adapta a ti.</p>
+            <ul>
+              <li>Acceso completo la primera semana</li>
+              <li>Sin compromisos al inicio</li>
+              <li>Perfecto para nuevos miembros</li>
+            </ul>
+          </div>
+          <div class="price">
+            <h3>Membresía mensual</h3>
+            <div class="amount">Contáctanos</div>
+            <p>Compartiremos la tarifa mensual actual directamente por mensaje para que siga siendo flexible y justa.</p>
+            <ul>
+              <li>4 sesiones por semana</li>
+              <li>Soporte grupal</li>
+              <li>Guía continua</li>
+            </ul>
+          </div>
+          <div class="price">
+            <h3>Preparación personalizada</h3>
+            <div class="amount">Opcional</div>
+            <p>Para los miembros que se preparan para carreras o necesitan orientación adicional, podemos armar un plan más personalizado.</p>
+            <ul>
+              <li>Enfoque en objetivos de carrera</li>
+              <li>Entrenamiento ajustable</li>
+              <li>Coordinación privada</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">¿Por qué confiar en nosotros?</div>
+            <h2 class="section-title">No somos profesionales certificados. Somos principiantes honestos que se hacen presentes.</h2>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="feature"><h3>Constantes</h3><p>Estamos comprometidos a entrenar regularmente y mantener el club activo.</p></div>
+          <div class="feature"><h3>Amigables</h3><p>Damos la bienvenida a los principiantes y mantenemos un entorno de apoyo, no intimidante.</p></div>
+          <div class="feature"><h3>Creciendo contigo</h3><p>Nosotros también estamos aprendiendo, por lo que el club se basa en la mejora, la disciplina y el progreso compartido.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Preguntas frecuentes</div>
+            <h2 class="section-title">Preguntas que las personas se hacen antes de unirse.</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="faq-item"><details><summary>¿Es esto solo para corredores avanzados?</summary><div>No. El club está diseñado especialmente para principiantes y adolescentes que quieren empezar a correr de forma sencilla y amigable.</div></details></div>
+          <div class="faq-item"><details><summary>¿Necesito tener experiencia?</summary><div>No. Podemos guiarte desde el principio, incluyendo el ritmo, la respiración, el calentamiento y la constancia básica.</div></details></div>
+          <div class="faq-item"><details><summary>¿Dónde entrenan exactamente?</summary><div>Entrenamos al aire libre en nuestra localidad. El punto exacto de encuentro se comparte de forma privada después de contactarnos por motivos de coordinación y seguridad.</div></details></div>
+          <div class="faq-item"><details><summary>¿Por qué la primera semana es gratis?</summary><div>Para que los nuevos miembros puedan probar el club sin presiones y ver si el ambiente y los horarios les convienen.</div></details></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Contacto</div>
+            <h2 class="section-title">Trae tus dudas. Te responderemos rápido.</h2>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-box">
+            <strong>El paso clave</strong>
+            <p>Contáctanos para conocer detalles, disponibilidad y el punto exacto de encuentro. Este es el siguiente paso principal para cualquier interesado.</p>
+          </div>
+          <div class="contact-box">
+            <strong>Enlace de WhatsApp / mensaje</strong>
+            <p>Reemplaza este marcador de posición con tu enlace de contacto real cuando estés listo para publicar.</p>
+            <div style="margin-top:14px;">
+              <a class="btn btn-primary" href="https://wa.me/0000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="fineprint">
+          Nota de seguridad: debido a que el entrenamiento se realiza al aire libre, los miembros siempre deben seguir las normas de tránsito locales, elegir rutas seguras y confirmar el lugar de encuentro antes de asistir.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating">
+    <a href="#contact">Contáctanos ahora</a>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year"></span> Viking Runners Club. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
